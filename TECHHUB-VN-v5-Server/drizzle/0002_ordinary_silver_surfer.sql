@@ -1,0 +1,1 @@
+ALTER TABLE `comments` ADD `reply_to` text REFERENCES comments(id);

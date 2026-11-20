@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1794951930456,
+      "tag": "0000_strange_joseph",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1794952750728,
+      "tag": "0001_smart_shooting_star",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1795082432842,
+      "tag": "0002_ordinary_silver_surfer",
+      "breakpoints": true
+    }
+  ]
+}

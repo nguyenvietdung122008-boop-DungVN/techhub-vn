@@ -1,0 +1,37 @@
+name: techhub-vn
+
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      TECHHUB_ORIGIN: "https://${SITE_DOMAIN:?Đặt SITE_DOMAIN trong tệp .env}"
+    volumes:
+      - app-data:/app/data
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  proxy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    environment:
+      SITE_DOMAIN: "${SITE_DOMAIN:?Đặt SITE_DOMAIN trong tệp .env}"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+
+volumes:
+  app-data:
+  caddy-data:
+  caddy-config:
